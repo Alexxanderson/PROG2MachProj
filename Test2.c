@@ -51,7 +51,7 @@ int main()
         displayEntries(pokemon[i].entry, pokemon[i].cPokeName, pokemon[i].cPokeType,pokemon[i].cPokeDesc, i);
     }
 
-    printf("Hello World"); // comment our try this shit
+    printf("Hello World"); // comment our try this shit alallaalallal
     
 
     return 0;
