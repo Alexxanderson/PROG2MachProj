@@ -41,7 +41,7 @@ void addEntry(int i)
          printf ("Is the pokemon [W]Water, [F]Fire, [G]Grass, [E]Electric: ");
          scanf(" %c", &pokemon[i].cPokeType);
          printf("Description: ");
-         fgets(pokemon[i].cPokeDesc,51, stdin);
+         fgets(pokemon[i].cPokeDesc,51, stdin); //2 fgets kasi this line gets ignored, newline problem, should be consulted for.
          fgets(pokemon[i].cPokeDesc,51, stdin);
          printf("\n");
 }
