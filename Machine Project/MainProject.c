@@ -19,12 +19,12 @@ int main()
     int i;
     clrscr();
 
-    for (i=0;i<2; ++i)
+    for (i=0;i<2; ++i) // test code
     {
         addEntry(i);
     }
 
-    for ( i = 0; i < 2; i++)
+    for ( i = 0; i < 2; i++) //test code
     {
         displayEntries(i);
     }
@@ -48,7 +48,7 @@ void addEntry(int i)
 
 void clrscr() // Clear Screen
 {
-    system("@cls||clear");
+    system("@cls||clear"); //implicit declaration, needs to be consulted for
 }
 
 void displayEntries(int i)
