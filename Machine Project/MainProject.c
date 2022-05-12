@@ -11,28 +11,80 @@ struct pokemon
 
 void addEntry(int i);
 void clrscr(); // Clear Screen}
+void deleteEntry(int nPkCtr);
 void displayEntry(int i);
-void modifyEntry(int i);
+void displayAllEntries(int nPkCtr);
+void menu();
+void modifyEntry(int nPkCtr);
+
+
 
 //main
 int main()
 {
-    int i;
+    int nPkCtr = 0; // Counter of how many pokemon are indexed && current index that has no value, will be utilized for addEntry
+    char cDc;
+    char cExit = 'N';
     clrscr();
+        
+        do
+        {
+            menu(); // Display Menu
+            cDc = getch();  
+            printf("\n");
 
-    for (i=0;i<1; ++i)
-    {
-        addEntry(i);
-    }
-    printf("\n");
+            switch (cDc) //dito mangyayari yung modification
+            {
+            case 'a': // Add Entry
+                addEntry(nPkCtr);
+                nPkCtr++;
+                break;
+            case 'm': // Modify Entry
+                printf("%d", nPkCtr);
+                modifyEntry(nPkCtr);                
+                break;
+            case 'd': // Delete Entry
+                deleteEntry(nPkCtr);
+                nPkCtr--;
+                break;
+            case 'l': // Display All Entries
+                displayAllEntries(nPkCtr);
+                break;
+            case 's': // Search Pokemon
+                break;
+            case 'r': // Research Tasks            
+                break;
+            case 'e': // Export
+                break;
+            case 'i': // Import
+                break;
+            default:                
+                printf ("Do you want to exit the Pokedex? [Y]Yes [N]No\n" );
+                cExit = getch(); // asks the user to reloop, if no, loop breaks, funcion ends also here
+                printf("\n");
+                break;
+            }
+        } while (cExit == 'N' || cExit == 'n');
 
-    for ( i = 0; i < 1; i++)
-    {
-        displayEntry(i);
-    }
-    printf("\n");
 
-    modifyEntry(0);
+
+         printf("\n");
+
+
+
+    // for (i=0;i<1; ++i)
+    // {
+    //     addEntry(i);
+    // }
+    // printf("\n");
+
+    // for ( i = 0; i < 1; i++)
+    // {
+    //     displayEntry(i);
+    // }
+    // printf("\n");
+
+    // modifyEntry(0);
 
     return 0;
 }
@@ -51,11 +103,52 @@ void addEntry(int i)
          fgets(pokemon[i].cPokeDesc,51, stdin); //for getting and storing the pokemon description
          pokemon[i].cPokeDesc[strcspn(pokemon[i].cPokeDesc, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
 
+        //Still needs some verification
+
 }
 
 void clrscr() // Clear Screen
 {
     system("@cls||clear"); //implicit declaration, needs to be consulted for
+}
+
+void deleteEntry(int nPkCtr) // Delete Entry
+{
+    int i,j; // i is for the actual index, j for the for loop
+    char cDec; // Decision;
+    do //for verification kung yung ineedit ay within the possible range
+    {
+        printf("What entry do you want to modify: ");
+        scanf("%d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
+    
+        if (i >= nPkCtr || i <=0 ) //saying na mali if more than the maximum entry ang ininput || 0 or less
+        {
+            printf("I'm Sorry, this index does not exist.");
+            getch();
+        }
+
+    } while (i >= nPkCtr || i <=0 ); // this shit will happen until valid number is inputted
+    i = i-1;
+
+    printf("You are deleting: \n");
+    displayEntry(i); // display the entry for correction to the user
+    printf("\n");
+    printf("Are you sure you want to delete this Entry?Y]Yes or [N]No \n"); // verification
+    cDec = getch();
+
+    if (cDec == 'y' || cDec == 'y')
+    {
+        for (j = i ; j < nPkCtr; j++) // for loop that adjust the index, basically, the deleted entry will copy the entry next to it.
+        {
+            strcpy (pokemon[j].cPokeName, pokemon[j+1].cPokeName);
+            pokemon[j].cPokeType = pokemon[j+1].cPokeType;
+            strcpy (pokemon[j].cPokeDesc, pokemon[j+1].cPokeDesc);
+        }
+        printf("Entry Deleted.\n");
+        printf("Pokedex Readjusted");
+        getch();
+    }
+
 }
 
 void displayEntry(int i)
@@ -65,11 +158,50 @@ void displayEntry(int i)
         printf("Pokemon Type: %c\n", pokemon[i].cPokeType); //prints Pokemon Type [character pa lang to]
         printf("Description: %s\n", pokemon[i].cPokeDesc); //prints Pokermon Decription
 }
-
-void modifyEntry(int i)
+void displayAllEntries(int nPkCtr)
 {
+    int i;
+    for ( i = 0; i < nPkCtr; i++)
+    {
+        displayEntry(i);
+        printf("\n");
+    }
+    getch();
+}
+
+void menu()
+{
+    printf("What do you want to accomplish:\n");
+    printf("[A]Add Entry \n");
+    printf("[M]Modify Entry \n");
+    printf("[D]Delete Entry \n");
+    printf("[L]Display All Entries \n");
+    printf("[S]Search POkemon \n");
+    printf("[R]Research tasks \n");
+    printf("[E]Export \n");
+    printf("[I]Import \n");
+    printf("[Any]Exit \n");
+}
+
+void modifyEntry(int nPkCtr)
+{
+    int i; // for identifying what entry to modify
     char choice;
     char modify = 'Y';
+
+    do
+    {
+        printf("What entry do you want to modify: ");
+    scanf("%d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
+    
+    if (i >= nPkCtr || i <=0 )
+    {
+        printf("I'm Sorry, this index does not exist.");
+        getch();
+    }
+    } while (i >= nPkCtr || i <=0 );
+
+    i = i-1; // this is the actual index.
 
         printf ("You are modifying this entry\n"); // These prints the basic info
         displayEntry(i);
