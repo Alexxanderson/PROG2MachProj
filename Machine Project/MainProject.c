@@ -70,14 +70,14 @@ void modifyEntry(int i)
 {
     char choice;
     char modify = 'Y';
-        printf ("You are modifying entry no. %d, \n", pokemon[i].entry); // These prints the basic info
-        printf("Pokemon Name: %s\n", pokemon[i].cPokeName); 
-        printf("Pokemon Type: %c\n", pokemon[i].cPokeType);
-        printf("Description: %s\n", pokemon[i].cPokeDesc);
 
+        printf ("You are modifying this entry\n"); // These prints the basic info
+        displayEntry(i);
+        printf("\n");
+        
         do
         {
-            printf("What do you want to modify? \n[n]Name, [t]Type, or [d]Description [any]Exit "); //question
+            printf("What do you want to modify? \n[n]Name, [t]Type, or [d]Description [any]Exit \n"); //question
             choice = getch(); // gets anong gusto gawin ng user
             printf("\n");
 
