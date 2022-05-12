@@ -1,0 +1,3 @@
+why fgets, not scanf:
+https://stackoverflow.com/questions/13542055/how-to-do-scanf-for-single-char-in-c 
+
