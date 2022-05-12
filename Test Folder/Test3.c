@@ -16,12 +16,51 @@ void displayAllEntries(int nPkCtr);
 void menu();
 void modifyEntry(int nPkCtr);
 
+void deleteEntry(int nPkCtr)
+{
+    int i,j;
+    char cDec; // Decision;
+    do
+    {
+        printf("What entry do you want to modify: ");
+        scanf("%d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
+    
+        if (i >= nPkCtr || i <=0 )
+        {
+            printf("I'm Sorry, this index does not exist.");
+            getch();
+        }
+
+    } while (i >= nPkCtr || i <=0 );
+    i = i-1;
+
+    printf("You are deleting: \n");
+    displayEntry(i);
+    printf("\n");
+    printf("Are you sure you want to delete this Entry? \n");
+    cDec = getch();
+
+    if (cDec == 'y' || cDec == 'y')
+    {
+        for (j = i ; j < nPkCtr; j++)
+        {
+            strcpy (pokemon[j].cPokeName, pokemon[j+1].cPokeName);
+            pokemon[j].cPokeType = pokemon[j+1].cPokeType;
+            strcpy (pokemon[j].cPokeDesc, pokemon[j+1].cPokeDesc);
+        }
+        printf("Entry Deleted.\n");
+        printf("Pokedex Readjusted");
+        getch();
+    }
+
+}
+
 //main
 int main()
 {
     int nPkCtr = 0; // Counter of how many pokemon are indexed && current index that has no value, will be utilized for addEntry
     char cDc;
-    char cExit = 'Y';
+    char cExit = 'N';
     clrscr();
         
         do
@@ -41,6 +80,8 @@ int main()
                 modifyEntry(nPkCtr);                
                 break;
             case 'd': // Delete Entry
+                deleteEntry(nPkCtr);
+                nPkCtr--;
                 break;
             case 'l': // Display All Entries
                 displayAllEntries(nPkCtr);
@@ -49,9 +90,9 @@ int main()
                 break;
             case 'r': // Research Tasks            
                 break;
-            case 'e': // Delete Entry
+            case 'e': // Export
                 break;
-            case 'i': // Delete Entry
+            case 'i': // Import
                 break;
             default:                
                 printf ("Do you want to exit the Pokedex? [Y]Yes [N]No\n" );
@@ -59,7 +100,7 @@ int main()
                 printf("\n");
                 break;
             }
-        } while (cExit == 'y' || cExit == 'Y');
+        } while (cExit == 'N' || cExit == 'n');
 
 
 
