@@ -193,6 +193,7 @@ void modifyEntry(int nPkCtr)
     {
         printf("What entry do you want to modify: ");
     scanf("%d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
+    scanf("%d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
     
     if (i >= nPkCtr || i <=0 )
     {
