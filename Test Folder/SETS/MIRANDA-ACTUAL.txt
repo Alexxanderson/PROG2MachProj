@@ -1,0 +1,84 @@
+A[] contents
+6
+act
+now
+before
+it's
+late
+now
+
+
+B[] contents
+7
+it's
+today
+now
+or
+forever
+today
+ACT
+
+
+**01-Search()**
+Result of Search("today", A, 6) = -1
+Result of Search("today", B, 7) = 1
+
+**02-setUnion()**
+C[] contents
+9
+act
+now
+before
+it's
+late
+today
+or
+forever
+ACT
+
+**03-setDiff()**
+C[] contents
+3
+act
+before
+late
+
+**04-intersect()**
+C[] contents
+2
+now
+it's
+
+**05-substringList()**
+C[] contents with substring "or"
+2
+or
+forever
+
+C[] contents with substring "at"
+1
+late
+
+C[] contents with substring "day"
+1
+today
+
+Original A[] contents
+6
+act
+now
+before
+it's
+late
+now
+
+
+Original B[] contents
+7
+it's
+today
+now
+or
+forever
+today
+ACT
