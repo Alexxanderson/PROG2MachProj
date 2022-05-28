@@ -21,6 +21,7 @@ void displayAllEntries(int nPkCtr);
 void menu();
 void modifyEntry(int nPkCtr);
 int Search(char key[], int nPkCtr);
+void searchPokeByName(int i);
 
 
 
@@ -55,6 +56,7 @@ int main()
                 displayAllEntries(nPkCtr);
                 break;
             case 's': // Search Pokemon
+                searchPokeByName(nPkCtr);
                 break;
             case 'r': // Research Tasks            
                 break;
@@ -69,8 +71,6 @@ int main()
                 break;
             }
         } while (cExit == 'N' || cExit == 'n');
-
-
 
          printf("\n");
 
@@ -301,4 +301,32 @@ int Search(char key[], int nPkCtr)
    {
       return -1;
    }
+}
+
+void searchPokeByName(int i)
+{
+   int j = 0;
+
+   char inName[21];
+
+   printf("Name of the Pokemon: ");
+    fgets(inName, 21, stdin); //for getting and storing the pokemon name
+    inName[strcspn(inName, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
+
+
+   
+      if (Search(inName, i) == 1) 
+      {
+          for (j = 0; j < i; j++)
+        {
+            if(strcmp(inName, pokemon[j].cPokeName) == 0)
+            {
+                displayEntry(j);
+            }
+        }
+      } else if (Search(inName, i)== -1) 
+      {
+         printf("I'm sorry, this pokemon doesn't exist. \n\n");
+      }
+	
 }
