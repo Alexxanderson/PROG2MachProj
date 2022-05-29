@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
+<<<<<<< HEAD
+#define DOMS 123123
+=======
 
+>>>>>>> 018c9caa024e6d2e38e72fc90e4d6642d6357804
 
 struct pokemon
 {
