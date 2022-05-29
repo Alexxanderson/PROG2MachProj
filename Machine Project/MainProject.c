@@ -3,10 +3,7 @@
 #include <stdlib.h>
 #include <conio.h>
 
-
 #define ENTRYMAX 150
-
-
 
 struct pokemon
 {
