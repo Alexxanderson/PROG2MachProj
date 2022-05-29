@@ -21,7 +21,8 @@ void displayAllEntries(int nPkCtr);
 void menu();
 void modifyEntry(int nPkCtr);
 int Search(char key[], int nPkCtr);
-void searchPokeByName(int i);
+void searchPokeByName(int nPkCtr);
+void searchPokeByType(int nPkCtr);
 
 
 
@@ -57,6 +58,9 @@ int main()
                 break;
             case 's': // Search Pokemon
                 searchPokeByName(nPkCtr);
+                break;
+            case 'p': // Search Pokemon by type
+                searchPokeByType(nPkCtr);
                 break;
             case 'r': // Research Tasks            
                 break;
@@ -112,8 +116,6 @@ int addEntry(int i)
 
          strcpy(pokemon[i].cPokeName, inName);
          printf("Name: %s \n", pokemon[i].cPokeName);
-
-        //CHECK IF POKEMON EXIST HERE *******
 
          printf ("Is the pokemon [W]Water, [F]Fire, [G]Grass, [E]Electric");
          pokemon[i].cPokeType = getch(); //getch nalang so that it's clean and walang further bugs na magkameron, altho stored char is the small letter
@@ -281,7 +283,7 @@ void modifyEntry(int nPkCtr)
          printf("\n");
 }
 
-int Search(char key[], int nPkCtr)
+int Search(char key[], int nPkCtr) //search function, strings only
 {
    int i;
    int found = -1;
@@ -303,7 +305,7 @@ int Search(char key[], int nPkCtr)
    }
 }
 
-void searchPokeByName(int i)
+void searchPokeByName(int nPkCtr)
 {
    int j = 0;
 
@@ -313,20 +315,46 @@ void searchPokeByName(int i)
     fgets(inName, 21, stdin); //for getting and storing the pokemon name
     inName[strcspn(inName, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
 
-
    
-      if (Search(inName, i) == 1) 
+      if (Search(inName, nPkCtr) == 1) 
       {
-          for (j = 0; j < i; j++)
+          for (j = 0; j < nPkCtr; j++)
         {
             if(strcmp(inName, pokemon[j].cPokeName) == 0)
             {
                 displayEntry(j);
+                printf("\n");
             }
         }
-      } else if (Search(inName, i)== -1) 
+      } else if (Search(inName, nPkCtr) == -1) 
       {
          printf("I'm sorry, this pokemon doesn't exist. \n\n");
       }
+	
+}
+
+void searchPokeByType(int nPkCtr)
+{
+   int i = 0;
+    int exist = 0;
+   char inType;
+
+    printf ("What type are you searching: [W]Water, [F]Fire, [G]Grass, [E]Electric \n");
+    inType = getch(); //getch nalang so that it's clean and walang further bugs na magkameron, altho stored char is the small letter
+   
+          for (i = 0; i < nPkCtr; i++)
+        {
+            if(inType == pokemon[i].cPokeType)
+            {
+                displayEntry(i);
+                printf("\n\n");
+                exist = 1;
+            }
+        }
+        if (exist == 0)
+        {
+             printf("No Pokemon of this type was found in this Pokedex.\n\n");
+        }
+       
 	
 }
