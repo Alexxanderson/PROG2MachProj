@@ -3,10 +3,7 @@
 #include <stdlib.h>
 #include <conio.h>
 
-
 #define ENTRYMAX 150
-
-
 
 struct pokemon
 {
@@ -146,8 +143,8 @@ void deleteEntry(int nPkCtr) // Delete Entry
     char cDec; // Decision;
     do //for verification kung yung ineedit ay within the possible range
     {
-        printf("What entry do you want to modify: ");
-        scanf("%d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
+        printf("What entry do you want to delete: ");
+        scanf(" %d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
     
         if (i >= nPkCtr || i <=0 ) //saying na mali if more than the maximum entry ang ininput || 0 or less
         {
