@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define DOMS 123123
+
 struct pokemon
 {
     int entry;
