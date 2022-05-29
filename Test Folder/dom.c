@@ -14,5 +14,7 @@ int main()
 
     printf("OIOWIDJWOIj\n");
 
+    printf("hafuoha\n");
+
     return 0;
 }
