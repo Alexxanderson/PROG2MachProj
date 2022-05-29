@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// hahaahahahahah pokedex inamo
+
 
 struct pokemon
 {
