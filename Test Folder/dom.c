@@ -16,5 +16,7 @@ int main()
 
     printf("hafuoha\n");
 
+    printf("i push u pull\n");
+
     return 0;
 }
