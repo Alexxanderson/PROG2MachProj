@@ -10,7 +10,7 @@ int main()
     clrscr();
     int i;
 
-    for ( i = 0; i <= 5-5; i++)
+    for ( i = 0; i < 1; i++)
     {
        printf("Hello world \n");
     }

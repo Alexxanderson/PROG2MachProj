@@ -307,29 +307,70 @@ int Search(char key[], int nPkCtr) //search function, strings only
 
 void searchPokeByName(int nPkCtr)
 {
-   int j = 0;
+    int j,c,i,k;
+    int ctr = 0; // to count the scanned pokemon
+    int nList[150];
+    int inNameLen; // length of key
+    char inName[21]; 
+    char sub[21]; //substring
+    int sublen; // length of the array[word] in for loop no. 2
+    int pos = 0; // THIS IS THE POSITION ITERATION PALA
+    int exist = 0;
+    int found = 0;
 
-   char inName[21];
-
-   printf("Name of the Pokemon: ");
+    printf("What do you want to find: ");
     fgets(inName, 21, stdin); //for getting and storing the pokemon name
     inName[strcspn(inName, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
 
-   
-      if (Search(inName, nPkCtr) == 1) 
-      {
-          for (j = 0; j < nPkCtr; j++)
+    inNameLen = strlen(inName);
+
+      	for (i = 0; i < nPkCtr; i++)
+	        {
+             pos = 0; //position starts at word[0]
+             sublen = strlen(pokemon[i].cPokeName); // declaring the length of the word
+
+                for (j = 0; j <= sublen - inNameLen; j++) //for loop ng position
+                 {
+                    c = 0;
+		            while (c < inNameLen) { //substring function 
+                    sub[c] = pokemon[i].cPokeName[c+pos]; // B[i] is the array of words, pos ay yung position to start the copying
+                    c++; // iteration
+   	                }
+   		            sub[c] = '\0'; //while loop will stop at an empty index after the last character, put a \0 kasi needed to
+
+		                if (strcmp(sub, inName) == 0) //if substring is found
+                            {
+                                for (k = 0; k < ctr; k++)
+                                    {
+                                        if (nList[k] == i)
+                                            {
+                                                found = 1;
+                                            }
+                                    }
+                                if (found == 0)
+                                {
+                                    nList[ctr] = i;
+                                    ctr++;
+                                    exist = 1;
+                                }
+                                found = 0; // reset                                
+                            }
+                    pos++; // position will iterate until maubos yung letters. // for loop P ends then go to the next for loop i 
+                 }
+	        }
+
+        if (exist == 1) // for displaying the entries found
         {
-            if(strcmp(inName, pokemon[j].cPokeName) == 0)
+            for ( i = 0; i < ctr; i++)
             {
-                displayEntry(j);
+                displayEntry(nList[i]);
                 printf("\n");
             }
+            
+        } else
+        {
+             printf("I'm sorry, no pokemon found. \n\n");
         }
-      } else if (Search(inName, nPkCtr) == -1) 
-      {
-         printf("I'm sorry, this pokemon doesn't exist. \n\n");
-      }
 	
 }
 
