@@ -192,44 +192,44 @@ intersect(String A[], String B[], String C[], int nElemA, int nElemB)
    @return number of elements in array C
 */
 int
-substringList(String key, String B[], String C[], int nElemB)
+substringList(String key, String B[], String C[], int nElemB) //key = yung hinahanap, B[] = array of words, C[] = where you will store the founded wods with key, nElemB = how many arrays yung B
 {
-	int ctr = 0;
-	int c, i;
-	char sub[5];
-   int keylen = strlen(key);
-   int p = 0;
-   int sublen;
-   int pos = 0;
+	int ctr = 0; // this counts how many words are found with the key
+	int c, i; // for iteration
+	char sub[5]; //substring
+   int keylen = strlen(key); // length of key
+   int p = 0; // p is just like a for loop variable lang, NOTHING ELSE
+   int sublen; // length of the array[word] in for loop no. 2
+   int pos = 0; // THIS IS THE POSITION ITERATION PALA
 
 	for (i = 0; i < nElemB; i++)
 	{
-      pos = 0;
-		c = 0;
-      sublen = strlen(*(B+i));
+      pos = 0; //position starts at word[0]
+		c = 0; //
+      sublen = strlen(*(B+i)); // declaring the length of the word
 
-      for (p = 0; p < sublen - 1; p++)
+      for (p = 0; p < sublen - 1; p++) //for loop ng position
       {
          c = 0;
-		   while (c < keylen) {
-         *(sub+c) = B[i][c+pos];
-         c++;
+		   while (c < keylen) { //substring function 
+         *(sub+c) = B[i][c+pos]; // B[i] is the array of words, pos ay yung position to start the copying
+         c++; // iteration
    	   }
-   		sub[c] = '\0';
+   		sub[c] = '\0'; //while loop will stop at an empty index after the last character, put a \0 kasi needed to
 
-		   if (strcmp(sub, key) == 0)
+		   if (strcmp(sub, key) == 0) //if substring is found
          {
-            if (Search(*(B+i), C,ctr) == -1) 
+            if (Search(*(B+i), C,ctr) == -1)  // this function related sa sets to, ikaw na bahala kung ano laman neto
              {
                strcpy(*(C+ctr), *(B+i));
                ctr++;
             }
          }
-         pos++;
+         pos++; // position will iterate until maubos yung letters. // for loop P ends then go to the next for loop i 
 	
       }
 
 	}
 	
-	return ctr;
+	return ctr; //for telling how many words na nakita with the string key on it.
 }
