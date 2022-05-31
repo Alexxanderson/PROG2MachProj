@@ -147,7 +147,7 @@ void deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]) // Delete Entry
         printf("What entry do you want to delete: ");
         scanf(" %d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
     
-        if (i >= nPkCtr || i <=0 ) //saying na mali if more than the maximum entry ang ininput || 0 or less
+        if (i > nPkCtr || i <=0 ) //saying na mali if more than the maximum entry ang ininput || 0 or less
         {
             printf("I'm Sorry, this index does not exist.");
             getch();
