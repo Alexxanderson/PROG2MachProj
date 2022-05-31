@@ -11,7 +11,7 @@ struct pokemonstruct
     char cPokeName[21];
     char cPokeType;
     char cPokeDesc[51];
-}pokemon[ENTRYMAX];
+};
 
 int addEntry(int i, struct pokemonstruct pokemon[]);
 void clrscr(); // Clear Screen
