@@ -75,16 +75,16 @@ void clrscr() // Clear Screen
     system("@cls||clear");
 }
 
-void try(struct pokemonstruct A[], int nElem)
+void try(struct pokemonstruct pokemon[], int nElem)
 {
     int i;
     for (i = 0; i < nElem; i++)
     {
         printf ("Enter pokemon name: "); 
-         fgets(A[i].cPokeName, 21, stdin); //for getting and storing the pokemon name
-         A[i].cPokeName[strcspn(A[i].cPokeName, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
+         fgets(pokemon[i].cPokeName, 21, stdin); //for getting and storing the pokemon name
+         pokemon[i].cPokeName[strcspn(pokemon[i].cPokeName, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
 
-       printf(" %s\n", A[i].cPokeName);
+       printf(" %s\n", pokemon[i].cPokeName);
     }
     
 }
@@ -124,9 +124,8 @@ int main()
 
     try(pokemon, 2);
 
-
-
-
+    printf(" %s", pokemon[0].cPokeName);
+    printf(" %s\n", pokemon[1].cPokeName);
 
 
 

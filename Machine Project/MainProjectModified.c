@@ -5,7 +5,7 @@
 
 #define ENTRYMAX 150
 
-struct pokemon
+struct pokemonstruct
 {
     int entry;
     char cPokeName[21];
@@ -13,22 +13,23 @@ struct pokemon
     char cPokeDesc[51];
 }pokemon[ENTRYMAX];
 
-int addEntry(int i);
+int addEntry(int i, struct pokemonstruct pokemon[]);
 void clrscr(); // Clear Screen
-void deleteEntry(int nPkCtr);
-void displayEntry(int i);
-void displayAllEntries(int nPkCtr);
+void deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]);
+void displayEntry(int i, struct pokemonstruct pokemon[]);
+void displayAllEntries(int nPkCtr, struct pokemonstruct pokemon[]);
 void menu();
-void modifyEntry(int nPkCtr);
-int Search(char key[], int nPkCtr);
-void searchPokeByName(int nPkCtr);
-void searchPokeByType(int nPkCtr);
+void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[]);
+int Search(char key[], int nPkCtr, struct pokemonstruct pokemon[]);
+void searchPokeByName(int nPkCtr, struct pokemonstruct pokemon[]);
+void searchPokeByType(int nPkCtr, struct pokemonstruct pokemon[]);
 
 
 
 //main
 int main()
 {
+    struct pokemonstruct pokemon[ENTRYMAX];
     int nPkCtr = 0; // Counter of how many pokemon are indexed && current index that has no value, will be utilized for addEntry
     char cDc;
     char cExit = 'N';
@@ -43,24 +44,24 @@ int main()
             switch (cDc) //dito mangyayari yung modification
             {
             case 'a': // Add Entry                
-                nPkCtr = addEntry(nPkCtr);
+                nPkCtr = addEntry(nPkCtr, pokemon);
                 break;
             case 'm': // Modify Entry
-                printf("%d", nPkCtr);
-                modifyEntry(nPkCtr);                
+                printf("%d", nPkCtr, pokemon);
+                modifyEntry(nPkCtr, pokemon);                
                 break;
             case 'd': // Delete Entry
-                deleteEntry(nPkCtr);
+                deleteEntry(nPkCtr, pokemon);
                 nPkCtr--;
                 break;
             case 'l': // Display All Entries
-                displayAllEntries(nPkCtr);
+                displayAllEntries(nPkCtr, pokemon);
                 break;
             case 's': // Search Pokemon
-                searchPokeByName(nPkCtr);
+                searchPokeByName(nPkCtr, pokemon);
                 break;
             case 'p': // Search Pokemon by type
-                searchPokeByType(nPkCtr);
+                searchPokeByType(nPkCtr, pokemon);
                 break;
             case 'r': // Research Tasks            
                 break;
@@ -97,7 +98,7 @@ int main()
     return 0;
 }
 
-int addEntry(int i)
+int addEntry(int i, struct pokemonstruct pokemon[])
 {
     char inName[21];
 
@@ -105,7 +106,7 @@ int addEntry(int i)
          fgets(inName, 21, stdin); //for getting and storing the pokemon name
          inName[strcspn(inName, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
 
-         if (Search(inName, i) == 1)
+         if (Search(inName, i, pokemon) == 1)
          {
              printf("This pokemon exist. \n\n");
          } else
@@ -137,7 +138,7 @@ void clrscr() // Clear Screen
     system("@cls||clear"); //implicit declaration, needs to be consulted for
 }
 
-void deleteEntry(int nPkCtr) // Delete Entry
+void deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]) // Delete Entry
 {
     int i,j; // i is for the actual index, j for the for loop
     char cDec; // Decision;
@@ -156,7 +157,7 @@ void deleteEntry(int nPkCtr) // Delete Entry
     i = i-1;
 
     printf("You are deleting: \n");
-    displayEntry(i); // display the entry for correction to the user
+    displayEntry(i, pokemon); // display the entry for correction to the user
     printf("\n");
     printf("Are you sure you want to delete this Entry? [Y]Yes or [N]No \n"); // verification
     cDec = getch();
@@ -176,19 +177,19 @@ void deleteEntry(int nPkCtr) // Delete Entry
 
 }
 
-void displayEntry(int i)
+void displayEntry(int i, struct pokemonstruct pokemon[])
 {
         printf("Entry No. %d\n", pokemon[i].entry); //prints entry no.
         printf("Pokemon Name: %s\n", pokemon[i].cPokeName); //prints Pokemon Name
         printf("Pokemon Type: %c\n", pokemon[i].cPokeType); //prints Pokemon Type [character pa lang to]
         printf("Description: %s\n", pokemon[i].cPokeDesc); //prints Pokermon Decription
 }
-void displayAllEntries(int nPkCtr)
+void displayAllEntries(int nPkCtr, struct pokemonstruct pokemon[])
 {
     int i;
     for ( i = 0; i < nPkCtr; i++)
     {
-        displayEntry(i);
+        displayEntry(i, pokemon);
         printf("\n");
     }
     getch();
@@ -208,7 +209,7 @@ void menu()
     printf("[Any]Exit \n");
 }
 
-void modifyEntry(int nPkCtr)
+void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[])
 {
     int i; // for identifying what entry to modify
     char choice;
@@ -230,7 +231,7 @@ void modifyEntry(int nPkCtr)
     i = i-1; // this is the actual index.
 
         printf ("You are modifying this entry\n"); // These prints the basic info
-        displayEntry(i);
+        displayEntry(i, pokemon);
         printf("\n");
         
         do
@@ -269,7 +270,7 @@ void modifyEntry(int nPkCtr)
                 printf("\n");
                 break;
             default:
-                displayEntry(i); //shows entry para macheck ng user for correction
+                displayEntry(i, pokemon); //shows entry para macheck ng user for correction
                 printf ("Do you want further edits? [Y]Yes [N]No");
                 modify = getch(); // asks the user to reloop, if no, loop breaks, funcion ends also here
                 printf("\n");
@@ -283,7 +284,7 @@ void modifyEntry(int nPkCtr)
          printf("\n");
 }
 
-int Search(char key[], int nPkCtr) //search function, strings only
+int Search(char key[], int nPkCtr, struct pokemonstruct pokemon[]) //search function, strings only
 {
    int i;
    int found = -1;
@@ -305,7 +306,7 @@ int Search(char key[], int nPkCtr) //search function, strings only
    }
 }
 
-void searchPokeByName(int nPkCtr)
+void searchPokeByName(int nPkCtr, struct pokemonstruct pokemon[])
 {
     int j,c,i,k;
     int ctr = 0; // to count the scanned pokemon
@@ -363,7 +364,7 @@ void searchPokeByName(int nPkCtr)
         {
             for ( i = 0; i < ctr; i++)
             {
-                displayEntry(nList[i]);
+                displayEntry(nList[i], pokemon);
                 printf("\n");
             }
             
@@ -374,7 +375,7 @@ void searchPokeByName(int nPkCtr)
 	
 }
 
-void searchPokeByType(int nPkCtr)
+void searchPokeByType(int nPkCtr, struct pokemonstruct pokemon[])
 {
    int i = 0;
     int exist = 0;
@@ -387,7 +388,7 @@ void searchPokeByType(int nPkCtr)
         {
             if(inType == pokemon[i].cPokeType)
             {
-                displayEntry(i);
+                displayEntry(i, pokemon);
                 printf("\n\n");
                 exist = 1;
             }
