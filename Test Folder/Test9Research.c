@@ -28,6 +28,15 @@ void displayAllEntries(int nPkCtr, struct pokemonstruct pokemon[]);
 void searchPokeByName(int nPkCtr, struct pokemonstruct pokemon[]);
 void searchPokeByType(int nPkCtr, struct pokemonstruct pokemon[]);
 
+void reviewResearchPerPokemon(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr);
+void reviewResearchPerType(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr);
+void updateResearchTask(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr);
+void researchDisplayAllEntries(int nPkCtr, struct pokemonstruct pokemon[],  int nRsrchCtr);
+void researchDisplayEntry(int i, struct pokemonstruct pokemon[],  int nRsrchCtr);
+void displayName(int i, struct pokemonstruct pokemon[]);
+void displayResTaskType(int nRsrchCtr);
+void displayEntryByResTaskType(int i, struct pokemonstruct pokemon[],  int nRsrchCtr, int inType);
+
 // research pokemon functions
 
 //main
@@ -77,10 +86,10 @@ int main()
             case 'u': // Update Research Task          
                 break;
             case 'r': // Review Research per Pokemon; Search Research by Name
-                
+                reviewResearchPerPokemon(nPkCtr, pokemon, nRsrchCtr);
                 break;
             case 't': // Review Research per Task Type; Search Research By Type
-                
+                reviewResearchPerType(nPkCtr, pokemon, nRsrchCtr);
                 break;
             case 'e': // Export
                 break;
@@ -115,7 +124,9 @@ void menu()
     printf("[L] Display All Entries \n");
     printf("[S] Search Pokemon \n");
     printf("[P] Search Pokemon by Type\n");
-    printf("[R] Research tasks \n");
+    printf("[R] Review Research tasks per Pokemon\n");
+    printf("[T] Review Research tasks per Type\n");
+    printf("[U] update Research tasks \n");
     printf("[E] Export \n");
     printf("[I] Import \n");
     printf("[X] Exit \n");
@@ -502,3 +513,155 @@ void searchPokeByType(int nPkCtr, struct pokemonstruct pokemon[])
         printf("No Pokemon of this type was found in this Pokedex.\n\n");
     }
 }
+
+void researchDisplayAllEntries(int nPkCtr, struct pokemonstruct pokemon[],  int nRsrchCtr)
+{
+    int i;
+
+    if (nPkCtr == 0) {
+        printf("\n**NO ENTRIES FOUND**\n"); // REPEATING SA reviewResearchPerPokemon NA FUNCTION
+    }
+    else {
+        printf("\n// DISPLAYING ALL ENTRIES //\n");
+        for ( i = 0; i < nPkCtr; i++)
+        {   
+            displayName(i, pokemon);
+        }
+        
+    }
+}
+
+void displayName(int i, struct pokemonstruct pokemon[])
+{
+        printf("\nEntry No. %d\n", pokemon[i].entry); //prints entry no.
+        printf("Pokemon Name: %s\n\n", pokemon[i].cPokeName); //prints Pokemon Name
+}
+
+void researchDisplayEntry(int i, struct pokemonstruct pokemon[],  int nRsrchCtr)
+{
+    int j;
+        printf("\nEntry No. %d\n", pokemon[i].entry); //prints entry no.
+        printf("Pokemon Name: %s\n", pokemon[i].cPokeName); //prints Pokemon Name
+
+        for (j = 0; j < nRsrchCtr; j++)
+        {
+            switch (j)
+            {
+            case 0:
+                printf("Seen: %d \n",  pokemon[i].nResearchType[0]);
+                break;
+            case 1:
+                printf("Defeated: %d \n",  pokemon[i].nResearchType[1]);
+                break;
+            default:
+                break;
+            }
+        }
+}
+
+void reviewResearchPerPokemon(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr)
+{
+    researchDisplayAllEntries(nPkCtr,pokemon, nRsrchCtr);
+
+    int entry; // entry is for the entry to find
+    
+    if (nPkCtr == 0)
+    {
+        printf("\nThere are no entries.\n"); // REPEATING SA researchDisplayAllEntries NA FUNCTIONS
+    }
+    else
+    {
+        do //for verification kung yung ineedit ay within the possible range
+        {
+            printf("\nWhat entry do you want to find: ");
+            scanf(" %d", &entry);
+        
+            if (entry > nPkCtr || entry <= 0 ) //saying na mali if more than the maximum entry ang ininput || 0 or less
+            {
+                printf("Oops! This entry does not exist.");
+            }
+        } while (entry > nPkCtr || entry <= 0 ); // this will happen until valid number is inputted
+
+            printf("You are finding: \n");
+            researchDisplayEntry(entry-1, pokemon, nRsrchCtr); // display the entry for correction to the user
+            printf("\n");
+
+            getch();
+    }
+}
+
+void displayResTaskType(int nRsrchCtr)
+{
+    int j;
+
+        for (j = 0; j < nRsrchCtr; j++)
+        {
+            switch (j)
+            {
+            case 0:
+                printf("[1] Seen \n");
+                break;
+            case 1:
+                printf("[2] Defeated \n");
+                break;
+            default:
+                break;
+            }
+        }
+}
+
+void reviewResearchPerType(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr)
+{
+    int i = 0;
+    int exist = 0;
+    int inType = 0;
+
+    do {
+        printf ("What Research Type are you searching for?\n");
+        displayResTaskType(nRsrchCtr);
+        scanf(" %d", &inType);
+
+        if (inType <= 0 || inType > nRsrchCtr) //saying na mali if more than the maximum entry ang ininput || 0 or less
+            {
+                printf("Oops! This type does not exist.");
+            }
+    } while (inType <= 0 || inType > nRsrchCtr);
+
+    inType--; //decrement para magstart sa index 0
+    
+    for (i = 0; i < nPkCtr; i++) 
+    {
+        if(pokemon[i].nResearchType[inType] >= 0) // SUBJECT TO CHANGE TO > ONLY
+        {
+            displayEntryByResTaskType(i, pokemon, nRsrchCtr, inType); 
+            printf("\n");
+            exist = 1;
+        }
+
+    }
+    
+    if (exist == 0) 
+    {
+        printf("No Pokemon of this type was found in this Pokedex.\n\n");
+    }
+}
+
+void displayEntryByResTaskType(int i, struct pokemonstruct pokemon[],  int nRsrchCtr, int inType)
+{
+        int j;
+        printf("\nEntry No. %d\n", pokemon[i].entry); //prints entry no.
+        printf("Pokemon Name: %s\n", pokemon[i].cPokeName); //prints Pokemon Name
+
+            switch (inType)
+            {
+            case 0:
+                printf("Seen: %d \n",  pokemon[i].nResearchType[0]);
+                break;
+            case 1:
+                printf("Defeated: %d \n",  pokemon[i].nResearchType[1]);
+                break;
+            default:
+                break;
+            }
+}
+
