@@ -11,8 +11,8 @@ struct pokemonstruct
     char cPokeName[21];
     char cPokeType;
     char cPokeDesc[51];
-    int seen;
-    int defeated;
+    int seen; // int researchtasktype[5]
+    int defeated; // char researchtaskname[5][21]
 };
 
 // miscellaneous functions
@@ -61,7 +61,6 @@ int main()
             case 'd': // Delete Entry
                 printf("Total no. of Entries: %d", nPkCtr);
                 nPkCtr = deleteEntry(nPkCtr, pokemon);
-                // nPkCtr--;
                 break;
 
             case 'l': // Display All Entries
@@ -90,29 +89,10 @@ int main()
                 cExit = getch(); 
                 break;
 
-            // default:                
-            //     printf ("Do you want to exit the Pokedex? [Y]Yes [N]No\n" );
-            //     cExit = getch(); // asks the user to reloop, if no, loop breaks, funcion ends also here
-            //     printf("\n");
-            //     break;
             }
         } while (cExit == 'N' || cExit == 'n');
 
         printf("\n");
-
-    // for (i=0;i<1; ++i)
-    // {
-    //     addEntry(i);
-    // }
-    // printf("\n");
-
-    // for ( i = 0; i < 1; i++)
-    // {
-    //     displayEntry(i);
-    // }
-    // printf("\n");
-
-    // modifyEntry(0);
 
     return 0;
 }
@@ -141,10 +121,13 @@ int addEntry(int i, struct pokemonstruct pokemon[])
 {
     char inName[21];
 
+    if (i == 150)
+    {
+       printf("Maximum entries reached. \n\n");
+    } else {
+
     printf("Enter pokemon name: "); 
     scanf(" %[^\n]s", &inName);
-        // fgets(inName, 21, stdin); // for getting and storing the pokemon name
-        // inName[strcspn(inName, "\n")] = 0; // clears the \n stored in the string coming from the fgets function
 
     if (Search(inName, i, pokemon) == 1)
     {
@@ -180,14 +163,12 @@ int addEntry(int i, struct pokemonstruct pokemon[])
                     
         printf("Description: ");
         scanf(" %[^\n]s", pokemon[i].cPokeDesc);
-        // fgets(pokemon[i].cPokeDesc,51, stdin); //for getting and storing the pokemon description
-        // pokemon[i].cPokeDesc[strcspn(pokemon[i].cPokeDesc, "\n")] = 0; // clears the \n stored in the string galing sa fgets function
-        pokemon[i].seen = 0;
+        
+        pokemon[i].seen = 0; // STILL SUBJECT TO CHANGE
         pokemon[i].defeated = 0;
-        //Still needs some verification
         i++;
         }
-
+    }
     return i;
 }
 
@@ -205,14 +186,13 @@ int deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]) // Delete Entry
         do //for verification kung yung ineedit ay within the possible range
         {
             printf("\nWhat entry do you want to delete: ");
-            scanf(" %d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
+            scanf(" %d", &i);
         
             if (i > nPkCtr || i <= 0 ) //saying na mali if more than the maximum entry ang ininput || 0 or less
             {
                 printf("Oops! This entry does not exist.");
-                // getch();
             }
-        } while (i > nPkCtr || i <= 0 ); // this shit will happen until valid number is inputted
+        } while (i > nPkCtr || i <= 0 ); // this will happen until valid number is inputted
 
         do
         {
@@ -230,8 +210,7 @@ int deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]) // Delete Entry
 
             if (cDec == 'y' || cDec == 'Y')
             {
-                nPkCtr--;
-                for (j = i; j < nPkCtr; j++) // LOGICAL WARNING!!!!!! DI MAWAWALA TEMPORARILY ANG LAST ENTRY UNLESS ADD ENTRY ULIT
+                for (j = i; j < nPkCtr; j++)
                 {
                     strcpy (pokemon[j].cPokeName, pokemon[j+1].cPokeName);
                     pokemon[j].cPokeType = pokemon[j+1].cPokeType;
@@ -239,6 +218,7 @@ int deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]) // Delete Entry
                     pokemon[i].seen = pokemon[i+1].seen;
                     pokemon[i].defeated = pokemon[i+1].defeated;
                 }
+                nPkCtr--;  
                 printf("\nEntry Deleted.\n");
                 printf("Pokedex Readjusted\n");
                 printf("\n~~PRESS ANY KEY TO CONTINUE~~\n");
@@ -246,12 +226,6 @@ int deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]) // Delete Entry
             }
             else if (cDec == 'n' || cDec == 'N')
             {
-                // for (j = i-1; j < nPkCtr; j++)
-                // {
-                //     strcpy (pokemon[j].cPokeName, pokemon[j].cPokeName);
-                //     pokemon[j].cPokeType = pokemon[j].cPokeType;
-                //     strcpy (pokemon[j].cPokeDesc, pokemon[j].cPokeDesc);
-                // }
                 printf("\nEntry Sustained.\n");
                 printf("\n~~PRESS ANY KEY TO CONTINUE~~\n");
                 getch();
@@ -277,7 +251,7 @@ void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[])
         do
         {
             printf("\nWhat entry do you want to modify: ");
-            scanf(" %d", &i); // BUGGGGED NEED TO REMOVE THE NEWLINE CHARACTER;
+            scanf(" %d", &i);
         
             if (i > nPkCtr || i <= 0 )
             {
@@ -299,7 +273,7 @@ void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[])
             printf("[T] Type\n");
             printf("[D] Description\n");
             printf("[X] Exit\n");
-            choice = getch(); // gets anong gusto gawin ng user
+            choice = getch(); // anong gusto gawin ng user
             printf("\n");
 
             switch (choice) //dito mangyayari yung modification
@@ -307,10 +281,7 @@ void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[])
                 case 'n':
                     strcpy(pokemon[i].cPokeName, "");
                     printf ("Enter New Pokemon Name: ");
-                    // fgets(pokemon[i].cPokeName, 21, stdin); //for getting and storing the pokemon name
                     scanf(" %[^\n]s", &pokemon[i].cPokeName);
-
-                    // pokemon[i].cPokeName[strcspn(pokemon[i].cPokeName, "\n")] = 0; //removes the \n inside the string
 
                     printf("Edited Pokemon Name: %s\n", pokemon[i].cPokeName); //for verificcation, subject for removal
                     printf ("\nDo you want to modify more?\n");
@@ -349,8 +320,6 @@ void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[])
                 case 'd':
                     printf("Enter New Description: ");
                     scanf(" %[^\n]s", &pokemon[i].cPokeDesc);
-                    // fgets(pokemon[i].cPokeDesc,51, stdin); //for getting and storing the pokemon description
-                    // pokemon[i].cPokeName[strcspn(pokemon[i].cPokeName, "\n")] = 0; //removes the \n inside the string
                     printf("Edited Description: %s\n", pokemon[i].cPokeDesc); // for verification, subject for removal
                     printf ("\nDo you want to modify more?\n");
                     printf("[Y] Yes\n"); 
@@ -361,13 +330,6 @@ void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[])
                 case 'x':
                     modify = 'x';
                     break;
-        
-                // default:
-                //     displayEntry(i); //shows entry para macheck ng user for correction
-                //     printf ("Do you want further edits? [Y]Yes [N]No");
-                //     modify = getch(); // asks the user to reloop, if no, loop breaks, funcion ends also here
-                //     printf("\n");
-                //     break;
             }
         } while (modify == 'y' || modify == 'Y');
         printf("\n");
