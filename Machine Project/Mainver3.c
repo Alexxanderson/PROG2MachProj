@@ -729,32 +729,41 @@ void showTopFive(int nPkCtr, struct pokemonstruct pokemon[],int nRsrchCtr, int i
     int i,j,k,h, min, temp;
     int A[ENTRYMAX]; // temporary lists of index numbers
 
-    for (k = 0; k < nPkCtr; k++)
+    for (k = 0; k < ENTRYMAX; k++) //swap sort algorithm
     {
         A[k] = k;
     }
     
     for (i = 0; i < nPkCtr - 1; i++) {
-    min = i; // min is the index of the lowest element
+        min = i; // min is the index of the lowest element
 
-    for (j = i + 1; j < nPkCtr; j++)
-        if (pokemon[A[min]].nResearchType[inType]  < pokemon[A[j]].nResearchType[inType] ) // FOR STRUCTS; A[min].resTaskTYpe[inType]  < A[j].resTasktpe[inType]
-            min = j;
+        for (j = i + 1; j < nPkCtr; j++)
+             if (pokemon[A[min]].nResearchType[inType]  < pokemon[A[j]].nResearchType[inType] ) // FOR STRUCTS; A[min].resTaskTYpe[inType]  < A[j].resTasktpe[inType]
+                min = j;
 
-// swap A[i] with A[min] 
-    if (i != min) {
-    temp = A[i]; 
-    A[i] = A[min]; 
-    A[min] = temp;
+        // swap function
+        if (i != min) {
+            temp = A[i]; 
+            A[i] = A[min]; 
+            A[min] = temp;
         }
     }
-    
-    printf("Here are the top 5 pokemons: \n\n");
 
-    for (h = 0; h < 5; h++)
+    if(pokemon[A[0]].nResearchType[inType] > 0) // this is to check if the highest has a value, pag wala, it means 0 lahat and therefore, no top 5
+        {
+            printf("Here are the top pokemons [max. 5]: \n\n");
+        } else
+        {
+            printf("No top 5 pokemons. \n\n");
+        }
+
+    for (h = 0; h < 5; h++) //this will print the top 5 pokemons
     {
-        displayEntryByResTaskType(A[h], pokemon, nRsrchCtr, inType); //display entry with the specific research task
+        if(pokemon[A[h]].nResearchType[inType] > 0)
+        {
+            displayEntryByResTaskType(A[h], pokemon, nRsrchCtr, inType); //display entry with the specific research task
             printf("\n");
+        }
     }
 
 }
