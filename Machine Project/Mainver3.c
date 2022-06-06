@@ -39,6 +39,8 @@ void displayResTaskType(int nRsrchCtr);
 void displayEntryByResTaskType(int i, struct pokemonstruct pokemon[],  int nRsrchCtr, int inType);
 void updateReseachTask(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr);
 
+void showTopFive(int nPkCtr, struct pokemonstruct pokemon[],int nRsrchCtr, int inType);
+
 //main
 int main()
 {
@@ -645,6 +647,8 @@ void reviewResearchPerType(int nPkCtr, struct pokemonstruct pokemon[], int nRsrc
     {
         printf("All pokemon in this specific type were all valued as 0.\n\n");
     }
+
+    showTopFive(nPkCtr,pokemon, nRsrchCtr, inType);
 }
 
 void displayEntryByResTaskType(int i, struct pokemonstruct pokemon[],  int nRsrchCtr, int inType) //display entry with the specific research task
@@ -716,6 +720,41 @@ void updateReseachTask(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr
 
             printf("Task Incremented. \n");
             researchDisplayEntry(entry, pokemon, nRsrchCtr); // display the entry for correction to the user
+    }
+
+}
+
+void showTopFive(int nPkCtr, struct pokemonstruct pokemon[],int nRsrchCtr, int inType)
+{
+    int i,j,k,h, min, temp;
+    int A[ENTRYMAX]; // temporary lists of index numbers
+
+    for (k = 0; k < nPkCtr; k++)
+    {
+        A[k] = k;
+    }
+    
+    for (i = 0; i < nPkCtr - 1; i++) {
+    min = i; // min is the index of the lowest element
+
+    for (j = i + 1; j < nPkCtr; j++)
+        if (pokemon[A[min]].nResearchType[inType]  < pokemon[A[j]].nResearchType[inType] ) // FOR STRUCTS; A[min].resTaskTYpe[inType]  < A[j].resTasktpe[inType]
+            min = j;
+
+// swap A[i] with A[min] 
+    if (i != min) {
+    temp = A[i]; 
+    A[i] = A[min]; 
+    A[min] = temp;
+        }
+    }
+    
+    printf("Here are the top 5 pokemons: \n\n");
+
+    for (h = 0; h < 5; h++)
+    {
+        displayEntryByResTaskType(A[h], pokemon, nRsrchCtr, inType); //display entry with the specific research task
+            printf("\n");
     }
 
 }
