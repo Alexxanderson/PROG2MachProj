@@ -729,12 +729,15 @@ void showTopFive(int nPkCtr, struct pokemonstruct pokemon[],int nRsrchCtr, int i
     int i,j,k,h, min, temp;
     int A[ENTRYMAX]; // temporary lists of index numbers
 
-    for (k = 0; k < ENTRYMAX; k++) //swap sort algorithm
+    // for initializing the temporary entry numbers, ENTRYMAX kasi nagkakabugs pag pokemon counter yan
+    // for initializing the temporary entry numbers, ENTRYMAX kasi nagkakabugs pag pokemon counter yan
+    for (k = 0; k < ENTRYMAX; k++) 
     {
         A[k] = k;
     }
     
-    for (i = 0; i < nPkCtr - 1; i++) {
+    // swap sort algorithm
+    for (i = 0; i < nPkCtr - 1; i++) { 
         min = i; // min is the index of the lowest element
 
         for (j = i + 1; j < nPkCtr; j++)
