@@ -41,6 +41,8 @@ void updateReseachTask(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr
 
 void showTopFive(int nPkCtr, struct pokemonstruct pokemon[],int nRsrchCtr, int inType);
 
+void export(int nPkCtr, struct pokemonstruct pokemon[]);
+
 //main
 int main()
 {
@@ -95,6 +97,7 @@ int main()
                 reviewResearchPerType(nPkCtr, pokemon, nRsrchCtr);
                 break;
             case 'e': // Export
+                export(nPkCtr, pokemon);
                 break;
             case 'i': // Import
                 break;
@@ -768,5 +771,32 @@ void showTopFive(int nPkCtr, struct pokemonstruct pokemon[],int nRsrchCtr, int i
             printf("\n");
         }
     }
+
+}
+
+void export(int nPkCtr, struct pokemonstruct pokemon[])
+{
+    char cFileName[31];
+    FILE *fpointer;
+    int i;
+
+    printf("Enter a file name (.txt is not included): ");
+    scanf(" %[^\n]s", &cFileName); //this is for asking the name of the file you want to get
+
+    strcat(cFileName, ".txt"); // adding .txt para maging txt file siya
+
+    fpointer = fopen(cFileName,"w"); // w = write, r = read, a = append
+    
+    for (i = 0; i < nPkCtr; i++)
+    {
+       fprintf(fpointer, "Name: %s \n", pokemon[i].cPokeName);
+       fprintf(fpointer, "Type: %c \n", pokemon[i].cPokeType);
+       fprintf(fpointer, "Description: %s \n", pokemon[i].cPokeDesc);
+       fprintf(fpointer, "\n");
+    }
+    
+    fclose(fpointer);
+
+    printf("Export Successful! \n");
 
 }

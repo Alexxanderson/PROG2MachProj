@@ -1,0 +1,8 @@
+Name: pikachu 
+The type is: e 
+The description is: this is a main pokernmon 
+
+Name: raichu 
+The type is: e 
+The description is: evolved piakchui 
+

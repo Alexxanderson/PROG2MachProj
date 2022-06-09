@@ -1,0 +1,3 @@
+The string is: bien 
+The type is: c 
+The description is: this tall 
