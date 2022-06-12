@@ -241,8 +241,8 @@ int deleteEntry(int nPkCtr, struct pokemonstruct pokemon[]) // Delete Entry
                     strcpy (pokemon[j].cPokeDesc, pokemon[j+1].cPokeDesc);
                     // pokemon[i].seen = pokemon[i+1].seen;
                     // pokemon[i].defeated = pokemon[i+1].defeated;
-                    pokemon[i].nResearchType[0] = pokemon[i+1].nResearchType[0];
-                    pokemon[i].nResearchType[1] = pokemon[i+1].nResearchType[1];
+                    pokemon[j].nResearchType[0] = pokemon[j+1].nResearchType[0];
+                    pokemon[j].nResearchType[1] = pokemon[j+1].nResearchType[1];
                 }
                 nPkCtr--;  
                 printf("\nEntry Deleted.\n");
