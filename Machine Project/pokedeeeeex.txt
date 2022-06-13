@@ -1,0 +1,24 @@
+Name: pikachu 
+Type: Electric
+Description: asdasdasd 
+
+Name: squirtle 
+Type: Water
+Description: yeaa 
+
+Name: charizard 
+Type: Fire
+Description: asdasdasd 
+
+Name: treeko 
+Type: Grass
+Description: adadasdaad 
+
+Name: metapod 
+Type: Grass
+Description: asdaasd 
+
+Name: vulpix 
+Type: Fire
+Description: asdasdasdasd 
+

@@ -454,19 +454,21 @@ void modifyEntry(int nPkCtr, struct pokemonstruct pokemon[])
                         boxMaker(32, 86, 4, 24, 33, 85, 5, 23);
                         gotoxy(54, 5); printf("MODIFY ENTRY\n");
 
-                        // strcpy(pokemon[i].cPokeName, "");
+                        //strcpy(pokemon[i].cPokeName, "");
                         gotoxy(44, 8); printf ("ENTER NEW POKEMON NAME: ");
                         gotoxy(44, 9); scanf(" %[^\n]s", &changeName);
+                        
 
-                        for (int j = i; j < ENTRYMAX; j++){
-                            if ( strcmp(pokemon[j].cPokeName, changeName) == 0 ){ // checks for duplicate names
+                            if (Search(changeName, nPkCtr, pokemon) == 1){ // verify if name change is correct
                                 validName = 'n'; // not valid, reprompt
+                                gotoxy(44, 11); printf ("NAME EXISTS IN THE POKEDEX.");
+                                getch();
                             }
                             else {
-                                strcpy(pokemon[j].cPokeName, changeName);
+                                strcpy(pokemon[i].cPokeName, changeName);
                                 validName = 'y';
                             }
-                        }
+                        
                     } while (validName == 'n');
                     
                     gotoxy(44, 11); printf("EDITED POKEMON NAME: %s\n", pokemon[i].cPokeName); // for verificcation, subject for removal
@@ -1641,6 +1643,8 @@ void updateResearchTask(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCt
     
             // printf("You are trying to update: \n");
 
+            do // abcd = do while loop implemented while nValue is a negative number
+            {
             system ("cls");
             colYellow();
             // boxMaker(46, 81, 4, 15, 47, 80, 5, 14);
@@ -1663,9 +1667,11 @@ void updateResearchTask(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCt
             default:
                 break;
             }
-
-            gotoxy(46, 13); colCyan(); printf("ENTER INCREMENT AMOUNT: ");
-            gotoxy(46, 14); scanf(" %d", &nValue);
+            
+                gotoxy(46, 13); colCyan(); printf("ENTER INCREMENT AMOUNT: ");
+                gotoxy(46, 14); scanf(" %d", &nValue);
+            } while (nValue < 0);
+            
 
             pokemon[entry].nResearchType[inType] = pokemon[entry].nResearchType[inType] + nValue;
 
