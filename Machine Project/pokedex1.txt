@@ -1,0 +1,24 @@
+Name: pikachu 
+Type: Electric
+Description: sasdasddad 
+
+Name: raichu 
+Type: Electric
+Description: asdadasd 
+
+Name: treeko 
+Type: Grass
+Description: aasdadasd 
+
+Name: squirtle 
+Type: Water
+Description: adadasdas 
+
+Name: doragon 
+Type: Grass
+Description: asdadasd 
+
+Name: water boy 
+Type: Water
+Description: asdadads 
+
