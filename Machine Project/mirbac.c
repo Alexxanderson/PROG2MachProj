@@ -40,6 +40,7 @@ void reviewResearchPerPokemon(int nPkCtr, struct pokemonstruct pokemon[], int nR
 void displayResTaskType(int nRsrchCtr); // Display the lists of Research Task Types
 void reviewResearchPerType(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr); // Review Research Task per Task Type
 void updateResearchTask(int nPkCtr, struct pokemonstruct pokemon[], int nRsrchCtr); //Update Research Task
+void displayEntryByResTaskType(int i, struct pokemonstruct pokemon[],  int nRsrchCtr, int inType)
 
 // design functions
 void boxMaker(int tbLeft, int tbRight, int yTopHor, int yBotHor, int iLHor, int iRHor, int iLVer, int iRVer);
